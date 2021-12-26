@@ -16,16 +16,16 @@ RUN echo developer | sudo -S apt install -y make protobuf-compiler
 ENV GOPATH /home/developer/go
 ENV PATH $PATH:/home/developer/go/bin
 
-COPY . /home/developer/go/src/sandox
+COPY . /home/developer/go/src/metrics_app
 RUN echo developer | sudo -S chown -R developer /home/developer/
 
-WORKDIR /home/developer/go/src/sandox
+WORKDIR /home/developer/go/src/metrics_app
 
 RUN make deps && make build
 
 
 FROM scratch
-COPY --from=builder /home/developer/go/src/sandox/bin/app /sandbox/app
-WORKDIR /sandbox
+COPY --from=builder /home/developer/go/src/metrics_app/bin/app /metrics_app/app
+WORKDIR /metrics_app
 EXPOSE 80-84
 ENTRYPOINT ["./app"]
