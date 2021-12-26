@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option optimize_for = SPEED;
+
+package prometheus.example.api;
+option go_package = "github.com/mispon/prometheus_metrics_example";
+
+import "google/protobuf/empty.proto";
+
+service MetricsService {
+  rpc Counter(google.protobuf.Empty) returns (BaseResponse);
+  rpc Gauge(google.protobuf.Empty) returns (BaseResponse);
+  rpc Histogram(google.protobuf.Empty) returns (BaseResponse);
+  rpc Summary(google.protobuf.Empty) returns (BaseResponse);
+}
+
+message BaseResponse {
+  string status = 1;
+}
